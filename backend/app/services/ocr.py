@@ -34,19 +34,3 @@ def extract_paragraphs(image_path):
 
     return "\n\n".join(all_paragraphs)
 
-# To run the script:
-# 1. Ensure you've run: gcloud auth application-default login
-# 2. Update the filename below
-
-# if __name__ == "__main__":
-#     test_image = "antanddove.jpg" # Ensure this file is in the same folder as your script
-    
-#     if not os.path.exists(test_image):
-#         print(f"❌ Error: Could not find the file '{test_image}'")
-#     else:
-#         try:
-#             print("🚀 Connecting to Google Cloud Vision API...")
-#             extract_paragraphs(test_image)
-#             print("✅ Success!")
-#         except Exception as e:
-#             print(f"❌ An error occurred:\n{e}")
