@@ -3,6 +3,9 @@ import os
 from google import genai 
 from google.genai import types
 from dotenv import load_dotenv, find_dotenv
+from app.services.trailer_prompt import TrailerScene
+
+
 
 # --- CONFIGURATION ---
 load_dotenv(find_dotenv())
@@ -108,11 +111,22 @@ def sign(input_uri):
     except Exception as e:
         print(f"Error parsing path: {e}")
         return None
+    
+def get_input(scene_data: TrailerScene):
+    # something will become prompt
+    # something will become duration
+    input_text = scene_data.video_prompt 
+    system_prompt = f"""Camera Choreography: {scene_data.camera_choreography}; 
+                        Audio Landscape: {scene_data.audio_landscape};
+                        Voiceover Script: {scene_data.voiceover_script};
+                        Lighting Evolution: {scene_data.lighting_evolution}; 
+                        Mood: {scene_data.mood}"""
+    prompt = f"User Prompt: {input_text}; System/Style Prompt: {system_prompt}"
+    return prompt
 
+def generate_video(scene_data: TrailerScene, duration: int):
+    prompt = get_input(scene_data)
+    video_uri = gen_video(prompt, duration)
+    signed_uri = sign(video_uri)
 
-# --- RUN IT ---
-PROMPT = "5 icecream on the desk falling repeatly"
-video_uri = gen_video(PROMPT, target_duration=6)
-signed_uri = sign(video_uri)
-
-print(signed_uri)
+    return signed_uri
