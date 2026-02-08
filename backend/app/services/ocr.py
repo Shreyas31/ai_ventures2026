@@ -1,8 +1,26 @@
 import os
 from google.cloud import vision
+import pypdf
 
 def extract_paragraphs(image_path):
-    """Detects document features (paragraphs) in a local image."""
+    """Detects document features (paragraphs) in a local image or extracts text from PDF."""
+    
+    # Check for PDF extension
+    _, ext = os.path.splitext(image_path)
+    if ext.lower() == ".pdf":
+        print(f"--- Extracting Text from PDF: {image_path} ---")
+        try:
+            reader = pypdf.PdfReader(image_path)
+            all_text = []
+            for page in reader.pages:
+                text = page.extract_text()
+                if text:
+                    all_text.append(text)
+            return "\n\n".join(all_text)
+        except Exception as e:
+            raise Exception(f"PDF Processing Error: {e}")
+
+    # Fallback to Image Vision API
     client = vision.ImageAnnotatorClient()
 
     with open(image_path, "rb") as image_file:
