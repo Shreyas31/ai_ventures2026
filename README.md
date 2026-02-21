@@ -5,7 +5,7 @@ Hackathon project for Imperial College London's AI Ventures Hackathon.
 This project creates short video teasers from book pages to boost engagement and sales by leveraging the "TikTok economy".
 
 
-# Pipeline:
+# Pipeline
 
 
 User uploads photos of book pages.
@@ -19,13 +19,13 @@ Condensed text is sent to Veo API for video generation.
 Generated video is returned and displayed in the app.
 
 
-# Tech Stack:
+# Tech Stack
 
 
 React.js, Python, FastAPI, OCR API, Gemini API (Text LLM & Veo)
 
 
-# Testing:
+# Testing
 
 
 **Backend**
